@@ -1,3 +1,5 @@
-/bower_components
+/src/bower_components
 /node_modules
-/js
+/dist
+/typings
+

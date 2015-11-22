@@ -4,12 +4,18 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "postinstall": "tsd reinstall -so"
   },
   "author": "",
   "license": "MIT",
   "devDependencies": {
     "gulp": "^3.9.0",
-    "gulp-typescript": "^2.9.2"
+    "gulp-concat": "^2.6.0",
+    "gulp-connect": "^2.2.0",
+    "gulp-livereload": "^3.8.1",
+    "gulp-open": "^1.0.0",
+    "gulp-typescript": "^2.9.2",
+    "ripe": "^0.2.1",
+    "run-sequence": "^1.1.5"
   }
 }
