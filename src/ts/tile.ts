@@ -13,9 +13,12 @@ module CitizenHack {
         static none: Tile;
 
         public sym: Symbol;
+        public solid: boolean;
 
-        constructor (sym: Symbol) {
+        constructor (sym: Symbol, options = {}) {
             this.sym = sym;
+            var solid = options.solid;
+            this.solid = solid === undefined ? true : solid;
         }
 
         static register(index: number, tile: Tile) {
@@ -38,7 +41,7 @@ module CitizenHack {
     Tile.register(Tile.NONE, new Tile(new Symbol(' ', 'black', 'black')));
     Tile.register(Tile.WALL, new Tile(new Symbol(' ', 'white', 'white')));
     Tile.register(Tile.HARD_WALL, new Tile(new Symbol(' ', 'black', 'black')));
-    Tile.register(Tile.FLOOR, new Tile(new Symbol('.', 'white', 'black')));
+    Tile.register(Tile.FLOOR, new Tile(new Symbol('.', 'white', 'black'), { solid: false }));
     Tile.register(Tile.CLOSED_DOOR, new Tile(new Symbol('+', 'brown', 'black')));
-    Tile.register(Tile.OPEN_DOOR, new Tile(new Symbol('O', 'brown', 'black')));
+    Tile.register(Tile.OPEN_DOOR, new Tile(new Symbol('O', 'brown', 'black'), { solid: false }));
 }

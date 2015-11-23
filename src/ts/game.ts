@@ -7,15 +7,22 @@ module CitizenHack {
         public renderer: Render;
 
         constructor () {
+            Status.print('Welcome to CitizenHack!');
             this.map = (new Worldgen.GeneratorDungeon).generate();
             this.player = Class.create(10, 10, Class.PLAYER);
             this.renderer = new Render;
+            document.onkeydown = this.keypress.bind(this);
             this.render();
         }
 
         move (dx: number, dy: number) : void {
-            this.player.x += dx;
-            this.player.y += dy;
+            var x = this.player.x + dx;
+            var y = this.player.y + dy;
+            var t = this.map.tileData(x, y);
+            if (!t.solid) {
+                this.player.x = x;
+                this.player.y = y;
+            }
             this.render();
         }
 
@@ -30,8 +37,29 @@ module CitizenHack {
                 this.move(-1, 0);
             } else if (event.keyCode === 39) {
                 this.move(1, 0);
+            } else {
+                this.open();
             }
             console.log(event.keyCode);
+        }
+
+        open () : void {
+            var p = Prompt.direction('In what direction do you want to open things?');
+            p.then((d: Array<number>) => {
+                var x = this.player.x + d[0];
+                var y = this.player.y + d[1];
+                var t = this.map.tile(x, y);
+                if (t === Tile.CLOSED_DOOR) {
+                    this.map.setTile(x, y, Tile.OPEN_DOOR);
+                    this.render();
+                } else if (t === Tile.OPEN_DOOR) {
+                    Status.print('The door is already open.');
+                } else {
+                    Status.print('There is nothing to open here.');
+                }
+            }).error(() => {
+                Status.print('Nevermind.');
+            });
         }
 
         render () : void {
@@ -41,9 +69,5 @@ module CitizenHack {
 
     $(document).ready(function() {
         var game = new Game;
-
-        $(document).keydown(function (event: KeyboardEvent) {
-            game.keypress(event)
-        })
     })
 }
