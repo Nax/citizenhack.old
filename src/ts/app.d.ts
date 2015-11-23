@@ -1,6 +1,8 @@
 /// <reference path="../../typings/tsd.d.ts" />
 
+/// <reference path="event.ts" />
 /// <reference path="game.ts" />
+/// <reference path="light.ts" />
 /// <reference path="map.ts" />
 /// <reference path="promise.ts" />
 /// <reference path="prompt.ts" />

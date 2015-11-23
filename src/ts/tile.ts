@@ -17,7 +17,7 @@ module CitizenHack {
 
         constructor (sym: Symbol, options = {}) {
             this.sym = sym;
-            var solid = options.solid;
+            var solid = options['solid'];
             this.solid = solid === undefined ? true : solid;
         }
 

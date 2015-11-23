@@ -25,6 +25,11 @@ module CitizenHack {
                     } else {
                         sym = t.sym;
                     }
+                    if (m.lit(i, j)) {
+                        m.image[i + j * m.width] = t.sym;
+                    } else {
+                        sym = m.image[i + j * m.width];
+                    }
                     this.mapCtx.fillStyle = sym.bgcolor;
                     this.mapCtx.fillRect(14 * i, 14 * j, 14, 14);
                     this.mapCtx.fillStyle = sym.color;

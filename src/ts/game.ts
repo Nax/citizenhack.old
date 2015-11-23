@@ -52,6 +52,7 @@ module CitizenHack {
         }
 
         render () : void {
+            Light.compute(this.map, this.player);
             this.renderer.renderMap(this.map, this.player);
         }
     }
