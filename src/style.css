@@ -9,18 +9,3 @@ html, body {
 .hidden {
     display: none;
 }
-
-#map * {
-    margin: 0;
-    padding: 0;
-}
-
-#map table {
-    border-collapse: collapse;
-}
-
-#map table tr td {
-    margin: 0;
-    width: 12pt;
-    height: 12pt;
-}

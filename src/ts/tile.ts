@@ -12,14 +12,10 @@ module CitizenHack {
         static tiles: Tile[] = [];
         static none: Tile;
 
-        public char: string;
-        public color: string;
-        public bgcolor: string;
+        public sym: Symbol;
 
-        constructor (char = ' ', color = 'white', bgcolor = 'black') {
-            this.char = char;
-            this.color = color;
-            this.bgcolor = bgcolor;
+        constructor (sym: Symbol) {
+            this.sym = sym;
         }
 
         static register(index: number, tile: Tile) {
@@ -39,10 +35,10 @@ module CitizenHack {
         }
     }
 
-    Tile.register(Tile.NONE, new Tile);
-    Tile.register(Tile.WALL, new Tile(' ', 'white', 'white'));
-    Tile.register(Tile.HARD_WALL, new Tile());
-    Tile.register(Tile.FLOOR, new Tile('.', 'white'));
-    Tile.register(Tile.CLOSED_DOOR, new Tile('+', 'brown'));
-    Tile.register(Tile.OPEN_DOOR, new Tile('O', 'brown'));
+    Tile.register(Tile.NONE, new Tile(new Symbol(' ', 'black', 'black')));
+    Tile.register(Tile.WALL, new Tile(new Symbol(' ', 'white', 'white')));
+    Tile.register(Tile.HARD_WALL, new Tile(new Symbol(' ', 'black', 'black')));
+    Tile.register(Tile.FLOOR, new Tile(new Symbol('.', 'white', 'black')));
+    Tile.register(Tile.CLOSED_DOOR, new Tile(new Symbol('+', 'brown', 'black')));
+    Tile.register(Tile.OPEN_DOOR, new Tile(new Symbol('O', 'brown', 'black')));
 }
