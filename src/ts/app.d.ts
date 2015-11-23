@@ -9,7 +9,10 @@
 /// <reference path="symbol.ts" />
 /// <reference path="tile.ts" />
 
+/// <reference path="action/open.ts" />
+
 /// <reference path="class/class.ts" />
+
 /// <reference path="entity/entity.ts" />
 
 /// <reference path="worldgen/dungeon.ts" />

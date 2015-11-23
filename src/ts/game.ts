@@ -1,7 +1,7 @@
 /// <reference path="app.d.ts" />
 
 module CitizenHack {
-    class Game {
+    export class Game {
         public map: Map;
         public player: Entity;
         public renderer: Render;
@@ -9,7 +9,13 @@ module CitizenHack {
         constructor () {
             Status.print('Welcome to CitizenHack!');
             this.map = (new Worldgen.GeneratorDungeon).generate();
-            this.player = Class.create(10, 10, Class.PLAYER);
+            var x;
+            var y;
+            do {
+                x = Math.random() * this.map.width | 0;
+                y = Math.random() * this.map.height | 0;
+            } while (this.map.tile(x, y) !== Tile.FLOOR);
+            this.player = Class.create(x, y, Class.PLAYER);
             this.renderer = new Render;
             document.onkeydown = this.keypress.bind(this);
             this.render();
@@ -27,7 +33,7 @@ module CitizenHack {
         }
 
         keypress (event: KeyboardEvent) : void {
-            if (event.keyCode === 0x69) {
+            if (event.keyCode === 73) {
                 $('#inventory').toggleClass('hidden')
             } else if (event.keyCode === 38) {
                 this.move(0, -1);
@@ -37,29 +43,12 @@ module CitizenHack {
                 this.move(-1, 0);
             } else if (event.keyCode === 39) {
                 this.move(1, 0);
-            } else {
-                this.open();
+            } else if (event.keyCode === 79) {
+                Action.open(this);
+            } else if (event.keyCode === 67) {
+                Action.close(this);
             }
             console.log(event.keyCode);
-        }
-
-        open () : void {
-            var p = Prompt.direction('In what direction do you want to open things?');
-            p.then((d: Array<number>) => {
-                var x = this.player.x + d[0];
-                var y = this.player.y + d[1];
-                var t = this.map.tile(x, y);
-                if (t === Tile.CLOSED_DOOR) {
-                    this.map.setTile(x, y, Tile.OPEN_DOOR);
-                    this.render();
-                } else if (t === Tile.OPEN_DOOR) {
-                    Status.print('The door is already open.');
-                } else {
-                    Status.print('There is nothing to open here.');
-                }
-            }).error(() => {
-                Status.print('Nevermind.');
-            });
         }
 
         render () : void {
