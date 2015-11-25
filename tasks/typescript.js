@@ -5,8 +5,8 @@ var concat      = require('gulp-concat')
 var typescript  = require('gulp-typescript')
 
 module.exports = function () {
-    gulp.src(['src/ts/**/*.ts'])
+    gulp.src(['client/ts/**/*.ts'])
         .pipe(typescript()).js
         .pipe(concat('citizenhack.js'))
-        .pipe(gulp.dest('dist/'))
+        .pipe(gulp.dest('dist/client/'))
 }

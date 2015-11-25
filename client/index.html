@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+<head>
+    <title>CitizenHack</title>
+    <script src="config.js"></script>
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <style>
+    body, html {
+        background: #222222;
+        color: white;
+        font-family: Helvetica, sans-serif;
+    }
+
+    .main {
+        margin: auto;
+        text-align: center;
+    }
+
+    .btn {
+        margin: 50pt;
+        background-color: #0055ee;
+        color: white;
+        font-size: 40pt;
+        border: none;
+        border-radius: 10pt;
+        width: 200pt;
+        height: 60pt;
+    }
+
+    #spectators {
+        display: inline-block;
+        min-width: 400px;
+        min-height: 200px;
+        border: 1px solid white;
+    }
+
+    #spectators a {
+        color: white;
+    }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <h1>CitizenHack</h1>
+        <a href="play.html"><button class="btn">Play</button></a>
+        <h2>Spectator Mode</h2>
+        <div id="spectators">
+        </div>
+    </div>
+    <script>
+        'use strict';
+
+        $(document).ready(function () {
+            var players = $.get('http://' + config.host + ':' + config.port + '/players', function (data) {
+                data.forEach(function (player) {
+                    $('<a>', {
+                        text: player.name,
+                        href: 'play.html?spectate=' + player.id
+                    }).appendTo($('#spectators'));
+                });
+            });
+        });
+    </script>
+</body>
+</html>

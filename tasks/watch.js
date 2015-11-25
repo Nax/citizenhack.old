@@ -3,5 +3,5 @@
 var gulp    = require('gulp')
 
 module.exports = function () {
-    gulp.watch('src/**', ['build'])
+    gulp.watch('client/**', ['build'])
 }
