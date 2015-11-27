@@ -44,6 +44,13 @@ app.get('/players', function (req, res) {
     res.send(p);
 });
 
+function broadcast (id, type, msg) {
+    players[id].socket.emit(type, msg);
+    watchers[id].forEach(function (s) {
+        s.emit(type, msg);
+    });
+}
+
 io.on('connection', function (socket) {
     socket.on('play', function (msg) {
         var id = guid();
@@ -65,6 +72,7 @@ io.on('connection', function (socket) {
             players[id] = {};
             players[id].seed = msg.seed;
             players[id].events = [];
+            players[id].socket = socket;
         });
 
         socket.on('event', function (msg) {
@@ -73,10 +81,33 @@ io.on('connection', function (socket) {
                 watcher.emit('event', msg);
             });
         });
+
+        socket.on('chat', function (msg) {
+            var o = {
+                msg: msg,
+                name: 'Anonymous'
+            };
+
+            broadcast(id, 'chat', o);
+        });
     });
 
     socket.on('watch', function (msg) {
         watchers[msg.id].push(socket);
-        socket.emit('init', players[msg.id]);
+        var init = {};
+        var id = msg.id;
+        init.seed = players[msg.id].seed;
+        init.events = players[msg.id].events;
+
+        socket.emit('init', init);
+
+        socket.on('chat', function (msg) {
+            var o = {
+                msg: msg,
+                name: 'Anonymous'
+            };
+
+            broadcast(id, 'chat', o);
+        });
     });
 });

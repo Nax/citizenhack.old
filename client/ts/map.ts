@@ -7,6 +7,7 @@ module CitizenHack {
         public data: Int32Array;
         public litMap: Int8Array;
         public image: Array<Symbol>;
+        public monsters: Array<Entity> = [];
 
         constructor (width: number, height: number, tile: number) {
             this.width = width;

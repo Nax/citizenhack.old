@@ -9,12 +9,16 @@
         <title>CitizenHack</title>
     </head>
     <body>
-        <div id="status"></div>
-        <div id="inventory" class="hidden">
-            <h2>Inventory</h2>
+        <div class="main">
+            <div id="status"></div>
+            <div class="game">
+                <canvas id="map"></canvas>
+            </div>
         </div>
-        <div class="game">
-            <canvas id="map"></canvas>
+        <div class="chat">
+            <h3>Chat</h3>
+            <div id="chatMsg"></div>
+            <input id="chatInput" placeholder="Type here to chat..."></input>
         </div>
     </body>
 </html>

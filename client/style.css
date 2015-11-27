@@ -11,6 +11,33 @@ html, body {
     font-family: Monospace;
 }
 
+body {
+    display: flex;
+}
+
+.main {
+    flex: 5;
+}
+
+.chat {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    max-height: 100vh;
+}
+
+#chatMsg {
+    flex: 1;
+}
+
+.chat h3 {
+    text-align: center;
+}
+
+.chat input {
+    height: 14pt;
+}
+
 .hidden {
     display: none;
 }

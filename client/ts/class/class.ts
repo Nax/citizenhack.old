@@ -4,6 +4,7 @@ module CitizenHack {
     export class Class {
 
         public static     PLAYER = 0;
+        public static     NEWT = 1;
 
         static classes: Class[] = [];
 
@@ -27,4 +28,5 @@ module CitizenHack {
     }
 
     Class.register(Class.PLAYER, new Class(new Symbol('@', 'yellow', 'black')));
+    Class.register(Class.NEWT, new Class(new Symbol('n', '#888888', 'black')));
 }

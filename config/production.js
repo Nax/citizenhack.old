@@ -5,6 +5,6 @@ var config = {
     port: 3300
 }
 
-if (module !== undefined) {
+if (typeof module !== 'undefined') {
     module.exports = config;
 }

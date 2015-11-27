@@ -13,6 +13,9 @@ module CitizenHack {
             Status.print('Welcome to CitizenHack!');
 
             this.socket = io.connect('http://' + config.host + ':' + config.port);
+            this.setupChat();
+            this.socket.on('chat', (d: any) => { this.chatRecv(d); });
+
             if (opts['spectate']) {
                 this.socket.emit('watch', { id: opts['spectate'] });
                 this.socket.on('init', (data: Object) => {
@@ -97,6 +100,9 @@ module CitizenHack {
         }
 
         keypress (event: KeyboardEvent) : void {
+            if ($('#chatInput').is(':focus')) {
+                return;
+            }
             if (event.keyCode === 73) {
                 Event.push('i');
             } else if (event.keyCode === 38) {
@@ -117,6 +123,26 @@ module CitizenHack {
         render () : void {
             Light.compute(this.map, this.player);
             this.renderer.renderMap(this.map, this.player);
+        }
+
+        chatRecv (data: any) : void {
+            var chatBox = $('#chatMsg');
+            var msg = $('<p>');
+            var name = $('<b>');
+            name.text(data['name'] + ': ');
+            msg.text(data['msg']);
+            msg.prepend(name);
+            chatBox.append(msg);
+        }
+
+        setupChat () : void {
+            $('#chatInput').keypress((e: KeyboardEvent) => {
+                if (e.charCode === 13) {
+                    this.socket.emit('chat', '' + $('#chatInput').val());
+                    $('#chatInput').val('');
+                    return false;
+                }
+            });
         }
     }
 

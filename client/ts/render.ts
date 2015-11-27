@@ -35,6 +35,11 @@ module CitizenHack {
                         sym = player.klass.sym;
                     } else {
                         sym = t.sym;
+                        m.monsters.forEach((m) => {
+                            if (m.x === i && m.y === j) {
+                                sym = m.klass.sym;
+                            }
+                        });
                     }
                     if (m.lit(i, j)) {
                         m.image[i + j * m.width] = t.sym;

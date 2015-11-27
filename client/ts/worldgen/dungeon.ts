@@ -131,6 +131,15 @@ module CitizenHack.Worldgen {
                     }
                 }
                 if (this.accept()) {
+                    for (var i = 0; i < 12; ++i) {
+                        var xx;
+                        var yy;
+                        do {
+                            xx = (Rand.number() * this.map.width) | 0;
+                            yy = (Rand.number() * this.map.height) | 0;
+                        } while (this.map.tile(xx, yy) !== Tile.FLOOR);
+                        this.map.monsters.push(Class.create(xx, yy, Class.NEWT));
+                    }
                     return this.map;
                 }
             } while (true);
