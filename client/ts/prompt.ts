@@ -1,27 +1,47 @@
-/// <reference path="app.d.ts" />
-
 module CitizenHack {
     export module Prompt {
         export function direction (str: string) : Promise {
             var promise = new Promise;
             Status.print(str);
-            Event.async((e: any) => {
-                switch (e) {
-                    case 'left':
-                        promise.resolve([-1, 0]);
+            var handler = document.onkeydown;
+            document.onkeydown = ((e: KeyboardEvent) : boolean => {
+                var solved = false;
+                var value = null;
+
+                if ($('#chatInput').is(':focus')) {
+                    return true;
+                }
+
+                e.preventDefault();
+                switch (e.keyCode) {
+                    case 37:
+                        solved = true;
+                        value = [-1, 0];
                         break;
-                    case 'up':
-                        promise.resolve([0, -1]);
+                    case 38:
+                        solved = true;
+                        value = [0, -1];
                         break;
-                    case 'right':
-                        promise.resolve([1, 0]);
+                    case 39:
+                        solved = true;
+                        value = [1, 0];
                         break;
-                    case 'down':
-                        promise.resolve([0, 1]);
+                    case 40:
+                        solved = true;
+                        value = [0, 1];
                         break;
                     default:
-                        promise.refuse();
+                        solved = true;
                 }
+                if (solved) {
+                    document.onkeydown = handler;
+                    if (value) {
+                        promise.resolve(value);
+                    } else {
+                        promise.refuse();
+                    }
+                }
+                return false;
             });
             return promise;
         }

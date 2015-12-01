@@ -60,6 +60,7 @@ io.on('connection', function (socket) {
 
         games.push(id);
         watchers[id] = [];
+
         socket.emit('id', { id: id });
 
         socket.on('disconnect', function () {

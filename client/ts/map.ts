@@ -1,4 +1,5 @@
-/// <reference path="app.d.ts" />
+/// <reference path="tile.ts" />
+/// <reference path="symbol.ts" />
 
 module CitizenHack {
     export class Map {
@@ -7,7 +8,7 @@ module CitizenHack {
         public data: Int32Array;
         public litMap: Int8Array;
         public image: Array<Symbol>;
-        public monsters: Array<Entity> = [];
+        public actors: Array<Actor> = [];
 
         constructor (width: number, height: number, tile: number) {
             this.width = width;

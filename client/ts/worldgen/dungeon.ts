@@ -1,5 +1,3 @@
-/// <reference path="../app.d.ts" />
-
 module CitizenHack.Worldgen {
     export class GeneratorDungeon implements Generable {
         private map: Map;
@@ -138,7 +136,7 @@ module CitizenHack.Worldgen {
                             xx = (Rand.number() * this.map.width) | 0;
                             yy = (Rand.number() * this.map.height) | 0;
                         } while (this.map.tile(xx, yy) !== Tile.FLOOR);
-                        this.map.monsters.push(Class.create(xx, yy, Class.NEWT));
+                        new MonsterNewt(xx, yy, this.map);
                     }
                     return this.map;
                 }

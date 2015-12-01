@@ -1,4 +1,4 @@
-/// <reference path="app.d.ts" />
+/// <reference path="symbol.ts"/>
 
 module CitizenHack {
     export class Tile {

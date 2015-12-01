@@ -1,5 +1,3 @@
-/// <reference path="app.d.ts" />
-
 module CitizenHack {
     export class Render {
         mapCanvas: HTMLCanvasElement;
@@ -19,32 +17,36 @@ module CitizenHack {
             this.enabled = false;
         }
 
-        renderMap(m: Map, player: Entity) : void {
+        render(world: World) : void {
+            var player = world.player;
+            var map = player.map;
+
             if (this.enabled) {
-                this.mapCanvas.width = m.width * 14;
-                this.mapCanvas.height = m.height * 14;
+                this.mapCanvas.width = map.width * 14;
+                this.mapCanvas.height = map.height * 14;
                 this.mapCtx.font = '10pt Monospace';
                 this.mapCtx.textBaseline = 'top';
                 this.mapCtx.clearRect(0, 0, this.mapCanvas.width, this.mapCanvas.height);
             }
-            for (var j = 0; j < m.height; ++j) {
-                for (var i = 0; i < m.width; ++i) {
+
+            for (var j = 0; j < map.height; ++j) {
+                for (var i = 0; i < map.width; ++i) {
                     var sym: Symbol;
-                    var t = m.tileData(i, j);
+                    var t = map.tileData(i, j);
                     if (player.x === i && player.y === j) {
-                        sym = player.klass.sym;
+                        sym = player.symbol();
                     } else {
                         sym = t.sym;
-                        m.monsters.forEach((m) => {
+                        map.actors.forEach((m) => {
                             if (m.x === i && m.y === j) {
-                                sym = m.klass.sym;
+                                sym = m.symbol();
                             }
                         });
                     }
-                    if (m.lit(i, j)) {
-                        m.image[i + j * m.width] = t.sym;
+                    if (map.lit(i, j)) {
+                        map.image[i + j * map.width] = t.sym;
                     } else {
-                        sym = m.image[i + j * m.width];
+                        sym = map.image[i + j * map.width];
                     }
                     if (this.enabled) {
                         this.mapCtx.fillStyle = sym.bgcolor;

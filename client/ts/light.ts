@@ -1,9 +1,10 @@
-/// <reference path="app.d.ts" />
-
 module CitizenHack {
     export module Light {
         
-        export function compute (map: Map, player: Entity) : void {
+        export function compute (world: World) : void {
+            var player = world.player;
+            var map = player.map;
+            
             for (var i = 0; i < map.width * map.height; ++i) {
                 map.litMap[i] = 0;
             }

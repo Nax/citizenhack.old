@@ -1,5 +1,3 @@
-/// <reference path="app.d.ts" />
-
 module CitizenHack {
     export class Symbol {
         public char: string;
