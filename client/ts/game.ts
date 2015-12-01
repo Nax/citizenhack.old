@@ -99,7 +99,7 @@ module CitizenHack {
             }
         }
 
-        keypress (event: KeyboardEvent) : void {
+        keypress (event: KeyboardEvent) : boolean {
             if ($('#chatInput').is(':focus')) {
                 return;
             }
@@ -118,6 +118,8 @@ module CitizenHack {
             } else if (event.keyCode === 67) {
                 Event.push('c');
             }
+            event.preventDefault();
+            return false;
         }
 
         render () : void {
@@ -128,11 +130,20 @@ module CitizenHack {
         chatRecv (data: any) : void {
             var chatBox = $('#chatMsg');
             var msg = $('<p>');
-            var name = $('<b>');
-            name.text(data['name'] + ': ');
-            msg.text(data['msg']);
-            msg.prepend(name);
+            if (data['type'] === 'msg') {
+                var name = $('<b>');
+                name.text(data['name'] + ': ');
+                msg.text(data['msg']);
+                msg.prepend(name);
+            } else if (data['type'] === 'join') {
+                msg.css('color', 'gray');
+                msg.text(data['name'] + ' joined.');
+            } else if (data['type'] === 'left') {
+                msg.css('color', 'gray');
+                msg.text(data['name'] + ' left.');
+            }
             chatBox.append(msg);
+            chatBox.scrollTop(1000000);
         }
 
         setupChat () : void {

@@ -63,6 +63,12 @@ io.on('connection', function (socket) {
         socket.emit('id', { id: id });
 
         socket.on('disconnect', function () {
+            var o = {
+                type: 'left',
+                name: 'Anonymous'
+            };
+            broadcast(id, 'chat', o);
+            
             delete players[id];
             delete watchers[id];
             delete games[games.indexOf(id)];
@@ -84,6 +90,7 @@ io.on('connection', function (socket) {
 
         socket.on('chat', function (msg) {
             var o = {
+                type: 'msg',
                 msg: msg,
                 name: 'Anonymous'
             };
@@ -101,9 +108,25 @@ io.on('connection', function (socket) {
 
         socket.emit('init', init);
 
+        var o = {
+            type: 'join',
+            name: 'Anonymous'
+        };
+        broadcast(id, 'chat', o);
+
         socket.on('chat', function (msg) {
             var o = {
+                type: 'msg',
                 msg: msg,
+                name: 'Anonymous'
+            };
+
+            broadcast(id, 'chat', o);
+        });
+
+        socket.on('disconnect', function () {
+            var o = {
+                type: 'left',
                 name: 'Anonymous'
             };
 

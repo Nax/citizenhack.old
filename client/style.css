@@ -24,10 +24,16 @@ body {
     flex-direction: column;
     flex: 1;
     max-height: 100vh;
+    min-width: 300px;
 }
 
 #chatMsg {
     flex: 1;
+    overflow: auto;
+}
+
+#chatMsg p {
+    margin: 2px;
 }
 
 .chat h3 {
