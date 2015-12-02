@@ -14,7 +14,7 @@ module CitizenHack {
             this.open = open;
         }
 
-        execute (actor: Actor): void {
+        execute (world: World, actor: Actor): void {
             var map = actor.map;
             var x = actor.x + this.dx;
             var y = actor.y + this.dy;

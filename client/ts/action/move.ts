@@ -11,10 +11,25 @@ module CitizenHack {
             this.dy = dy;
         }
 
-        execute (actor: Actor) : void {
+        execute (world: World, actor: Actor) : void {
             var map = actor.map;
             var x = actor.x + this.dx;
             var y = actor.y + this.dy;
+            var attack = false;
+
+            map.actors.forEach((a: Actor) => {
+                if (a.x === x && a.y === y) {
+                    var action = new AttackAction(this.dx, this.dy);
+                    action.execute(world, actor);
+                    attack = true;
+                    return;
+                }
+            });
+
+            if (attack) {
+                return;
+            }
+
             var tileData = map.tileData(x, y);
             
             if (!tileData.solid) {

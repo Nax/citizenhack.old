@@ -17,7 +17,7 @@ module CitizenHack {
             this.enabled = false;
         }
 
-        render(world: World) : void {
+        render (world: World) : void {
             var player = world.player;
             var map = player.map;
 
@@ -27,6 +27,7 @@ module CitizenHack {
                 this.mapCtx.font = '10pt Monospace';
                 this.mapCtx.textBaseline = 'top';
                 this.mapCtx.clearRect(0, 0, this.mapCanvas.width, this.mapCanvas.height);
+                this.renderInfo(world);
             }
 
             for (var j = 0; j < map.height; ++j) {
@@ -56,6 +57,14 @@ module CitizenHack {
                     }
                 }
             }
+        }
+
+        renderInfo (world: World) : void {
+            var player = world.player;
+            var percent = Math.ceil(player.hp / player.hpMax * 100);
+
+            $('#hp').text(player.hp + ' / ' + player.hpMax);
+            $('#hpBar').css('width', percent + '%');
         }
     }
 }

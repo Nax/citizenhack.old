@@ -138,6 +138,15 @@ module CitizenHack.Worldgen {
                         } while (this.map.tile(xx, yy) !== Tile.FLOOR);
                         new MonsterNewt(xx, yy, this.map);
                     }
+                    for (var i = 0; i < 5; ++i) {
+                        var xx;
+                        var yy;
+                        do {
+                            xx = (Rand.number() * this.map.width) | 0;
+                            yy = (Rand.number() * this.map.height) | 0;
+                        } while (this.map.tile(xx, yy) !== Tile.FLOOR);
+                        new MonsterShadok(xx, yy, this.map);
+                    }
                     return this.map;
                 }
             } while (true);

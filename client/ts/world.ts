@@ -1,7 +1,10 @@
+/// <reference path="map.ts"/>
+
 module CitizenHack {
     export class World {
         public maps: Array<Map> = [];
         public player: Player;
+        public deadFlag: boolean = false;
 
         constructor () {
             var generator = new Worldgen.GeneratorDungeon;

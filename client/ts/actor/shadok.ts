@@ -2,22 +2,22 @@
 /// <reference path="../action/move.ts" />
 
 module CitizenHack {
-    export class MonsterNewt extends Monster {
-        static sym = new Symbol('n', '#888888', 'black');
+    export class MonsterShadok extends Monster {
+        static sym = new Symbol('S', 'orange', 'black');
 
         constructor(x: number, y: number, map: Map) {
             super(x, y, map);
-            this.speed = 8;
-            this.hp = this.hpMax = 8;
-            this.str = 6;
+            this.speed = 20;
+            this.hp = this.hpMax = 12;
+            this.str = 2;
         }
 
         symbol () : Symbol {
-            return MonsterNewt.sym;
+            return MonsterShadok.sym;
         }
 
         name () :string {
-            return 'newt';
+            return 'shadok';
         }
 
         play () : Action {

@@ -7,7 +7,6 @@ module CitizenHack {
     export class Game {
         public renderer: Render;
         public world: World;
-        public actors: Array<Actor> = [];
         public socket: SocketIOClient.Socket;
         public spectate: boolean;
         public actionReplay: Array<Action> = [];
@@ -19,22 +18,29 @@ module CitizenHack {
             this.world = new World;
             this.renderer = new Render;
             this.world.player.network(socket, spectate);
-            this.actors.push(this.world.player);
-            this.actors = this.actors.concat(this.world.player.map.actors);
             this.render();
         }
 
         loop () : void {
             while (true) {
-                var actor = this.actors.shift();
-                this.actors.push(actor);
+                if (this.world.deadFlag) {
+                    this.filterDead();
+                    if (this.world.player.dead) {
+                        document.onkeydown = undefined;
+                        this.render();
+                        return;
+                    }
+                }
+                var actors = this.world.player.map.actors;
+                var actor = actors.shift();
+                actors.push(actor);
                 if (actor.act()) {
                     var actionPromise = actor.play();
                     if (actionPromise instanceof Action) {
-                        actionPromise.execute(actor);
+                        actionPromise.execute(this.world, actor);
                     } else if (actionPromise instanceof Promise) {
                         actionPromise.then((action: Action) => {
-                            action.execute(actor);
+                            action.execute(this.world, actor);
                             this.socket.emit('event', action.serialize());
                             this.loop();
                         });
@@ -51,6 +57,18 @@ module CitizenHack {
                     }
                 }
             }
+        }
+
+        filterDead () : void {
+            this.world.deadFlag = false;
+            var newActors: Array<Actor> = [];
+            var map = this.world.player.map;
+            map.actors.forEach((a: Actor) => {
+                if (!a.dead || a.isPlayer()) {
+                    newActors.push(a);
+                }
+            });
+            this.world.player.map.actors = newActors;
         }
 
         render () : void {

@@ -12,6 +12,9 @@ module CitizenHack {
         constructor (x: number, y: number, map: Map) {
             super(x, y, map);
             this.speed = 10;
+            this.hp = 18;
+            this.hpMax = 18;
+            this.str = 12;
         }
 
         isPlayer () : boolean {
@@ -20,6 +23,14 @@ module CitizenHack {
 
         symbol () : Symbol {
             return Player.sym;
+        }
+
+        name () : string {
+            return 'you';
+        }
+
+        properName () : boolean {
+            return true;
         }
 
         network (socket: SocketIOClient.Socket, spectate: boolean) : void {

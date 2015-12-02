@@ -53,8 +53,36 @@ body {
     overflow:       auto;
 }
 
+.info {
+    height: 40px;
+}
+
+.hp {
+    position: relative;
+    text-align: center;
+    width: 120px;
+}
+
+#hpBar {
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: green;
+    height: 15px;
+}
+
+#hp {
+    position: absolute;
+    z-index: 10;
+    text-align: center;
+    left: 0;
+    width: 120px;
+    height: 0;
+}
+
 .game {
     overflow: auto;
     width: 100%;
-    height: calc(100vh - 120px);
+    height: calc(100vh - 120px - 40px);
 }
