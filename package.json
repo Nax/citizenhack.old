@@ -16,12 +16,12 @@
     "gulp-open": "^1.0.0",
     "gulp-rename": "^1.2.2",
     "gulp-typescript": "^2.9.2",
+    "gulp-nodemon": "^2.0.4",
     "ripe": "^0.2.1",
     "run-sequence": "^1.1.5"
   },
   "dependencies": {
     "express": "^4.13.3",
-    "gulp-nodemon": "^2.0.4",
-    "socketty": "^0.1.0"
+    "socketty": "^0.1.2"
   }
 }

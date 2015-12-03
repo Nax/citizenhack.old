@@ -1,7 +1,7 @@
 'use strict';
 
 var config = {
-    host: 'localhost',
+    api: 'localhost:8000',
     port: 8000
 }
 

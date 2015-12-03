@@ -33,7 +33,9 @@ app.use(function(req, res, next) {
     next();
 });
 
-app.get('/players', function (req, res) {
+app.use(express.static(__dirname + '/../dist/client'));
+
+app.get('/api/players', function (req, res) {
     var p = [];
     games.forEach(function (id) {
         var player = {};
@@ -45,7 +47,9 @@ app.get('/players', function (req, res) {
 });
 
 function broadcast (id, type, msg) {
-    players[id].socket.send(type, msg);
+    if (players[id]) {        
+        players[id].socket.send(type, msg);
+    }
     watchers[id].forEach(function (s) {
         s.send(type, msg);
     });
@@ -64,15 +68,15 @@ wss.connection(function (socket) {
         socket.send('id', { id: id });
 
         socket.disconnect(function () {
+            delete players[id];
+            var gameIndex = games.indexOf(id);
+            games.splice(gameIndex, 1);
+
             var o = {
                 type: 'left',
                 name: 'Anonymous'
             };
             broadcast(id, 'chat', o);
-            
-            delete players[id];
-            delete watchers[id];
-            delete games[games.indexOf(id)];
         });
 
         socket.on('init', function (msg) {
@@ -126,6 +130,9 @@ wss.connection(function (socket) {
         });
 
         socket.disconnect(function () {
+            var i = watchers[id].indexOf(socket);
+            watchers[id].splice(i, 1);
+
             var o = {
                 type: 'left',
                 name: 'Anonymous'

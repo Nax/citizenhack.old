@@ -1,7 +1,7 @@
 /// <reference path="../../typings/tsd.d.ts"/>
 
 declare var config: {
-    host: string,
+    api: string,
     port: number
 };
 
@@ -46,7 +46,7 @@ module CitizenHack {
 
     function initGame () : void {
         var params = getJsonFromUrl();
-        var socket = socketty.connect('ws://' + config.host + ':' + config.port, function (socket) {
+        var socket = socketty.connect('ws://' + config.api, function (socket) {
             var spectate = params['spectate'];
             if (!spectate) {
                 socket.send('play');

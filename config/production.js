@@ -1,7 +1,7 @@
 'use strict';
 
 var config = {
-    host: 'nax.io',
+    api: 'games.nax.io/citizenhack',
     port: 3300
 }
 

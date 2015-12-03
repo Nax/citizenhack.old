@@ -52,7 +52,7 @@
         'use strict';
 
         $(document).ready(function () {
-            var players = $.get('http://' + config.host + ':' + config.port + '/players', function (data) {
+            var players = $.get('http://' + config.api + '/api/players', function (data) {
                 data.forEach(function (player) {
                     $('<a>', {
                         text: player.name,
