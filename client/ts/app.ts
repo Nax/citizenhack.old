@@ -46,7 +46,7 @@ module CitizenHack {
 
     function initGame () : void {
         var params = getJsonFromUrl();
-        var socket = socketty.connect('ws://' + config.api, function (socket) {
+        var socket = socketty.connect('ws://' + config.api + '/', function (socket) {
             var spectate = params['spectate'];
             if (!spectate) {
                 socket.send('play');
