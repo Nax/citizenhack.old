@@ -41,7 +41,7 @@ module CitizenHack {
                     } else if (actionPromise instanceof Promise) {
                         actionPromise.then((action: Action) => {
                             action.execute(this.world, actor);
-                            this.socket.emit('event', action.serialize());
+                            this.socket.send('event', action.serialize());
                             this.loop();
                         });
                         this.render();

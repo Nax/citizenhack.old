@@ -38,7 +38,7 @@ module CitizenHack {
         var input = $('#chatInput');
         input.keydown((e: KeyboardEvent) => {
             if (e.keyCode === 13 && input.val() !== '') {
-                socket.emit('chat', input.val());
+                socket.send('chat', input.val());
                 input.val('');
             }
         });
@@ -46,22 +46,20 @@ module CitizenHack {
 
     function initGame () : void {
         var params = getJsonFromUrl();
-        var socket = io.connect('http://' + config.host + ':' + config.port);
-
-        socket.on('connect', () => {
+        var socket = socketty.connect('ws://' + config.host + ':' + config.port, function (socket) {
             var spectate = params['spectate'];
             if (!spectate) {
-                socket.emit('play');
+                socket.send('play');
                 socket.on('id', () => {
                     var seed = Math.random() * 2000000000 | 0;
-                    socket.emit('init', { seed: seed });
+                    socket.send('init', { seed: seed });
                     Rand.seed(seed);
                     setupChat(socket);
                     var game = new Game(socket, false);
                     game.loop();
                 });
             } else {
-                socket.emit('watch', { id: spectate });
+                socket.send('watch', { id: spectate });
                 socket.on('init', (msg: any) => {
                     Rand.seed(msg['seed']);
                     setupChat(socket);

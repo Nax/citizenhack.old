@@ -2,12 +2,12 @@
 
 var http        = require('http');
 var express     = require('express');
-var socketio    = require('socket.io');
+var socketty    = require('socketty');
 var config      = require('../config');
 
 var app = express();
 var server = http.createServer(app);
-var io = socketio.listen(server);
+var wss = new socketty.Server(server);
 
 server.listen(config.port);
 
@@ -45,13 +45,13 @@ app.get('/players', function (req, res) {
 });
 
 function broadcast (id, type, msg) {
-    players[id].socket.emit(type, msg);
+    players[id].socket.send(type, msg);
     watchers[id].forEach(function (s) {
-        s.emit(type, msg);
+        s.send(type, msg);
     });
 }
 
-io.on('connection', function (socket) {
+wss.connection(function (socket) {
     socket.on('play', function (msg) {
         var id = guid();
         while (games.indexOf(id) !== -1) {
@@ -61,9 +61,9 @@ io.on('connection', function (socket) {
         games.push(id);
         watchers[id] = [];
 
-        socket.emit('id', { id: id });
+        socket.send('id', { id: id });
 
-        socket.on('disconnect', function () {
+        socket.disconnect(function () {
             var o = {
                 type: 'left',
                 name: 'Anonymous'
@@ -85,7 +85,7 @@ io.on('connection', function (socket) {
         socket.on('event', function (msg) {
             players[id].events.push(msg);
             watchers[id].forEach(function (watcher) {
-                watcher.emit('event', msg);
+                watcher.send('event', msg);
             });
         });
 
@@ -107,7 +107,7 @@ io.on('connection', function (socket) {
         init.seed = players[msg.id].seed;
         init.events = players[msg.id].events;
 
-        socket.emit('init', init);
+        socket.send('init', init);
 
         var o = {
             type: 'join',
@@ -125,7 +125,7 @@ io.on('connection', function (socket) {
             broadcast(id, 'chat', o);
         });
 
-        socket.on('disconnect', function () {
+        socket.disconnect(function () {
             var o = {
                 type: 'left',
                 name: 'Anonymous'
