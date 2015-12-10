@@ -1,18 +1,20 @@
 {
   "name": "socketty",
-  "homepage": "https://github.com/Nax/socketty-client",
+  "description": "A thin websocket API",
+  "main": "dist/socketty.min.js",
   "authors": [
-    "Nax <max.bacoux@gmail.com>"
+    "Nax"
   ],
-  "description": "Raw websockets with a socket.io like API.",
-  "main": "",
-  "moduleType": [],
+  "license": "MIT",
   "keywords": [
     "websockets"
   ],
-  "license": "MIT",
+  "homepage": "https://github.com/Nax/socketty-node",
+  "moduleType": [
+    "node"
+  ],
   "ignore": [
-    "*",
+    "**/*",
     "!dist/*"
   ]
 }

@@ -7,7 +7,7 @@ var config      = require('../config');
 
 var app = express();
 var server = http.createServer(app);
-var wss = new socketty.Server(server);
+var wss = socketty.createServer(server);
 
 server.listen(config.port);
 

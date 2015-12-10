@@ -22,6 +22,6 @@
   },
   "dependencies": {
     "express": "^4.13.3",
-    "socketty": "^0.1.2"
+    "socketty": "^0.2.2"
   }
 }
