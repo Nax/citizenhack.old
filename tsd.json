@@ -8,8 +8,8 @@
     "jquery/jquery.d.ts": {
       "commit": "0ea013a775ce1fb90c5e41b255e1d038714ffbe5"
     },
-    "socket.io-client/socket.io-client.d.ts": {
-      "commit": "b2d17b5dad042e293e77d09f2a30d281325cb606"
+    "socketty/socketty.d.ts": {
+      "commit": "8ea42cd8bb11863ed6f242d67c502288ebc45a7b"
     }
   }
 }

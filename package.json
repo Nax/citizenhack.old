@@ -10,18 +10,14 @@
   "license": "MIT",
   "devDependencies": {
     "gulp": "^3.9.0",
-    "gulp-concat": "^2.6.0",
-    "gulp-connect": "^2.2.0",
-    "gulp-livereload": "^3.8.1",
-    "gulp-open": "^1.0.0",
-    "gulp-rename": "^1.2.2",
-    "gulp-typescript": "^2.9.2",
     "gulp-nodemon": "^2.0.4",
-    "ripe": "^0.2.1",
-    "run-sequence": "^1.1.5"
+    "gulp-rename": "^1.2.2",
+    "ts-loader": "^0.7.2",
+    "webpack": "^1.12.9"
   },
   "dependencies": {
     "express": "^4.13.3",
+    "jquery": "^2.1.4",
     "socketty": "^0.2.2"
   }
 }

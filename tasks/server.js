@@ -5,6 +5,7 @@ var nodemon = require('gulp-nodemon');
 
 module.exports = function () {
     nodemon({
-        script: 'server/server.js'
+        script: 'server/server.js',
+        ignore: ['*', '!server/*']
     });
 }

@@ -33,7 +33,7 @@ app.use(function(req, res, next) {
     next();
 });
 
-app.use(express.static(__dirname + '/../dist/client'));
+app.use(express.static(__dirname + '/../client'));
 
 app.get('/api/players', function (req, res) {
     var p = [];

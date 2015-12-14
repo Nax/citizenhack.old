@@ -1,12 +1,20 @@
-'use strict'
+'use strict';
 
-var gulp        = require('gulp')
-var concat      = require('gulp-concat')
-var typescript  = require('gulp-typescript')
+var gulp        = require('gulp');
+var browserify  = require('browserify');
+var tsify       = require('tsify');
+var rename      = require('gulp-rename');
+var source      = require('vinyl-source-stream');
 
 module.exports = function () {
-    gulp.src(['client/ts/**/*.ts'])
-        .pipe(typescript()).js
-        .pipe(concat('citizenhack.js'))
-        .pipe(gulp.dest('dist/client/'))
+    var b = browserify({
+        entries: 'src/app.ts',
+        standalone: 'CitizenHack'
+    });
+
+    b.plugin(tsify);
+
+    return b.bundle()
+        .pipe(source('citizenhack.js'))
+        .pipe(gulp.dest('./client/'));
 }

@@ -1,5 +1,8 @@
-/client/bower_components
 /node_modules
 /dist
 /typings
+
+/client/citizenhack.js
+/client/citizenhack.js.map
+/client/config.js
 
