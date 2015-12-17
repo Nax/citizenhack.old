@@ -11,8 +11,10 @@ class Player extends Actor {
 				p.resolve(Action.unserialize(msg));
 			});
 		} else {
-			document.onkeydown = (e: KeyboardEvent) => {
-				if ($('#chat'))
+			document.onkeydown = (e: KeyboardEvent) : boolean => {
+				if ($('#chatInput').is(':focus')) {
+					return true;
+				}
 				switch (e.keyCode) {
 					case 37:
 						this.move(p, -1, 0);
@@ -33,6 +35,8 @@ class Player extends Actor {
 						this.open(p, false);
 						break;
 				}
+				e.preventDefault();
+				return false;
 			}
 		}
 		return p;
