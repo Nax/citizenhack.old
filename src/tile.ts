@@ -1,4 +1,4 @@
-import Symbol = require('./symbol');
+/// <reference path="symbol.ts"/>
 
 class Tile {
     public static NONE            = -1;
@@ -43,5 +43,3 @@ Tile.register(Tile.HARD_WALL, new Tile(new Symbol(' ', 'black', 'black')));
 Tile.register(Tile.FLOOR, new Tile(new Symbol('.', 'white', 'black'), { solid: false }));
 Tile.register(Tile.CLOSED_DOOR, new Tile(new Symbol('+', 'brown', 'black')));
 Tile.register(Tile.OPEN_DOOR, new Tile(new Symbol('O', 'brown', 'black'), { solid: false }));
-
-export = Tile;

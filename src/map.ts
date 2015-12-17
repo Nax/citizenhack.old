@@ -1,6 +1,6 @@
-import Tile = require('./tile');
-import Actor = require('./actor');
-import Symbol = require('./symbol');
+/// <reference path="symbol.ts"/>
+/// <reference path="actor.ts"/>
+/// <reference path="tile.ts"/>
 
 class Map {
     public width: number;
@@ -51,5 +51,3 @@ class Map {
         return !!(this.litMap[x + y * this.width]);
     }
 }
-
-export = Map;

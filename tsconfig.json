@@ -1,10 +1,9 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
-        "sourceMap": true
+        "sourceMap": true,
+        "out": "client/citizenhack.js"
     },
     "files": [
-        "src/app.ts",
-        "typings/tsd.d.ts"
+        "src/app.ts"
     ]
 }

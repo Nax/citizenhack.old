@@ -1,5 +1,5 @@
-import Status = require('./status');
-import Promise = require('./promise');
+/// <reference path="promise.ts"/>
+/// <reference path="status.ts"/>
 
 module Prompt {
     export function direction (str: string) : Promise {
@@ -48,5 +48,3 @@ module Prompt {
         return promise;
     }
 }
-
-export = Prompt;

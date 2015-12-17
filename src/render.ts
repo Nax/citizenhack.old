@@ -1,6 +1,6 @@
-import World = require('./world');
-import Symbol = require('./symbol');
-import $ = require('jquery');
+/// <reference path="../typings/tsd.d.ts"/>
+/// <reference path="world.ts"/>
+/// <reference path="symbol.ts"/>
 
 class Render {
     mapCanvas: HTMLCanvasElement;
@@ -38,12 +38,12 @@ class Render {
                 var sym: Symbol;
                 var t = map.tileData(i, j);
                 if (player.x === i && player.y === j) {
-                    sym = player.symbol();
+                    sym = player.klass.symbol;
                 } else {
                     sym = t.sym;
                     map.actors.forEach((m) => {
                         if (m.x === i && m.y === j) {
-                            sym = m.symbol();
+                            sym = m.klass.symbol;
                         }
                     });
                 }
@@ -64,11 +64,9 @@ class Render {
 
     renderInfo (world: World) : void {
         var player = world.player;
-        var percent = Math.ceil(player.hp / player.hpMax * 100);
+        var percent = Math.ceil(player.stats.hp / player.stats.hpMax * 100);
 
-        $('#hp').text(player.hp + ' / ' + player.hpMax);
+        $('#hp').text(player.stats.hp + ' / ' + player.stats.hpMax);
         $('#hpBar').css('width', percent + '%');
     }
 }
-
-export = Render;

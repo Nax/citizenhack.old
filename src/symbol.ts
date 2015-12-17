@@ -9,5 +9,3 @@ class Symbol {
         this.bgcolor = bgcolor;
     }
 }
-
-export = Symbol;

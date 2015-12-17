@@ -1,4 +1,4 @@
-import $ = require('jquery');
+/// <reference path="../typings/tsd.d.ts"/>
 
 module Status {
     export function print (str: string) : void {
@@ -8,5 +8,3 @@ module Status {
         $('#status').scrollTop(10000);
     }
 }
-
-export = Status;

@@ -1,8 +1,7 @@
-import Map = require('./map');
-import Tile = require('./tile');
-import Player = require('./actor/player');
-import Rand = require('./rand');
-import WorldGen = require('./worldgen');
+/// <reference path="map.ts"/>
+/// <reference path="player.ts"/>
+/// <reference path="monsters.ts"/>
+/// <reference path="worldgen/worldgen.ts"/>
 
 class World {
     public maps: Array<Map> = [];
@@ -10,12 +9,8 @@ class World {
     public deadFlag: boolean = false;
 
     constructor () {
-        console.log('w1');
-        console.log(WorldGen.Dungeon);
         var generator = new WorldGen.Dungeon;
-        console.log('w2');
         var m = generator.generate();
-        console.log('w3');
         this.maps.push(m);
         var x;
         var y;
@@ -23,8 +18,6 @@ class World {
             x = (Rand.number() * m.width) | 0;
             y = (Rand.number() * m.height) | 0;
         } while (m.tile(x, y) !== Tile.FLOOR); // KLUDGE
-        this.player = new Player(x, y, m);
+        this.player = <Player>Monsters.Player.create(m, x, y);
     }
 }
-
-export = World;

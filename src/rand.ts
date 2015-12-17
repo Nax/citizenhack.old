@@ -14,5 +14,3 @@ module Rand {
         return (Rand.number() * n) | 0;
     }
 }
-
-export = Rand;

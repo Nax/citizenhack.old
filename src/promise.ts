@@ -48,5 +48,3 @@ class Promise {
         return this.next;
     }
 }
-
-export = Promise;

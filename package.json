@@ -12,12 +12,12 @@
     "gulp": "^3.9.0",
     "gulp-nodemon": "^2.0.4",
     "gulp-rename": "^1.2.2",
-    "ts-loader": "^0.7.2",
-    "webpack": "^1.12.9"
+    "gulp-typescript": "^2.10.0",
+    "gulp-util": "^3.0.7",
+    "typescript": "^1.7.3"
   },
   "dependencies": {
     "express": "^4.13.3",
-    "jquery": "^2.1.4",
-    "socketty": "^0.2.2"
+    "socketty": "^0.2.3"
   }
 }

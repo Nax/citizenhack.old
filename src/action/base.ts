@@ -1,9 +1,8 @@
-import World = require('../world');
-import Actor = require('../actor');
+/// <reference path="../world.ts"/>
 
-abstract class Base {
-    abstract execute(world: World, actor: Actor): void;
-    abstract serialize(): Object;
+module Action {
+	export abstract class Base {
+		abstract execute(world: World, actor: Actor): void;
+		abstract serialize(): Object;
+	}
 }
-
-export = Base;

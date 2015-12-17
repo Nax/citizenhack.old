@@ -1,5 +1,5 @@
-import Map = require('./map');
-import World = require('./world');
+/// <reference path="world.ts"/>
+/// <reference path="map.ts"/>
 
 module Light {
     export function compute (world: World) : void {
@@ -39,5 +39,3 @@ module Light {
         }
     }
 }
-
-export = Light;

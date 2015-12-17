@@ -4,6 +4,7 @@
     <title>CitizenHack</title>
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <script src="config.js"></script>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <style>
     body, html {
         background: #222222;
@@ -51,7 +52,7 @@
         'use strict';
 
         $(document).ready(function () {
-            var players = $.get('http://' + config.api + '/api/players', function (data) {
+            $.get('http://' + config.api + '/api/players', function (data) {
                 data.forEach(function (player) {
                     $('<a>', {
                         text: player.name,

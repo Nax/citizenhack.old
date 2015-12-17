@@ -1,17 +1,17 @@
-import Render = require('./render');
-import World = require('./world');
-import Action = require('./action');
-import Status = require('./status');
-import Promise = require('./promise');
-import Light = require('./light');
-import Actor = require('./actor');
+/// <reference path="render.ts"/>
+/// <reference path="world.ts"/>
+/// <reference path="action/action.ts"/>
+/// <reference path="status.ts"/>
+/// <reference path="promise.ts"/>
+/// <reference path="actor.ts"/>
+/// <reference path="light.ts"/>
 
 class Game {
     public renderer: Render;
     public world: World;
     public socket: SockettySocket;
     public spectate: boolean;
-    public actionReplay: Array<Action> = [];
+    public actionReplay: Array<Action.Base> = [];
 
     constructor (socket: SockettySocket, spectate: boolean) {
         Status.print('Welcome to CitizenHack!');
@@ -38,10 +38,10 @@ class Game {
             actors.push(actor);
             if (actor.act()) {
                 var actionPromise = actor.play();
-                if (actionPromise instanceof Action) {
+                if (actionPromise instanceof Action.Base) {
                     actionPromise.execute(this.world, actor);
                 } else if (actionPromise instanceof Promise) {
-                    actionPromise.then((action: Action) => {
+                    actionPromise.then((action: Action.Base) => {
                         action.execute(this.world, actor);
                         this.socket.send('event', action.serialize());
                         this.loop();
@@ -66,7 +66,7 @@ class Game {
         var newActors: Array<Actor> = [];
         var map = this.world.player.map;
         map.actors.forEach((a: Actor) => {
-            if (!a.dead || a.isPlayer()) {
+            if (!a.dead || a instanceof Player) {
                 newActors.push(a);
             }
         });
@@ -78,5 +78,3 @@ class Game {
         this.renderer.render(this.world);
     }
 }
-
-export = Game;
