@@ -25,7 +25,7 @@ class Game {
 
     loop () : void {
         while (true) {
-            if (this.world.deadFlag) {
+            if (this.world.deadFlag || true /* KLUDGE */) {
                 this.filterDead();
                 if (this.world.player.dead) {
                     document.onkeydown = undefined;
@@ -40,9 +40,11 @@ class Game {
                 var actionPromise = actor.play();
                 if (actionPromise instanceof Action.Base) {
                     actionPromise.execute(this.world, actor);
+                    actor.afterPlay();
                 } else if (actionPromise instanceof Promise) {
                     actionPromise.then((action: Action.Base) => {
                         action.execute(this.world, actor);
+                        actor.afterPlay();
                         this.socket.send('event', action.serialize());
                         this.loop();
                     });

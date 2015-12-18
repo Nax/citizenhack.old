@@ -32,4 +32,11 @@ module Monsters {
         new Symbol('o', '#00ffff', 'black'),
         new Stats(10, 0, 2)
     );
+    
+    export var NuclearEye = new Class(
+      Monster,
+      "nuclear eye",
+      new Symbol('o', 'yellow', 'black'),
+      new Stats(60, 20, 2)  
+    );
 }

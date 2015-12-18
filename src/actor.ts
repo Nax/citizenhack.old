@@ -32,4 +32,33 @@ abstract class Actor {
     }
     
     abstract play () : Action.Base | Promise;
+    
+    damage (n: number) : void {
+        this.stats.hp -= n;
+        if (this.stats.hp > this.stats.hpMax) {
+            this.stats.hp = this.stats.hpMax;
+        } else if (this.stats.hp <= 0) {
+            this.stats.hp = 0;
+            this.dead = true;
+        }
+    }
+    
+    afterPlay () : void {
+        if (this.dead) {
+            return;
+        }
+        
+        if (this.klass.id != Monsters.NuclearEye.id) {
+            this.map.actors.forEach((a: Actor) => {
+                if (a.klass.id != Monsters.NuclearEye.id) {
+                    return;
+                }
+                var dx = this.x - a.x;
+                var dy = this.y - a.y;
+                if (dx * dx + dy * dy <= 9) {
+                    this.damage(1);
+                }
+            });
+        }
+    }
 }
